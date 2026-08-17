@@ -56,3 +56,11 @@ mvn exec:java -Dexec.mainClass=edu.unisabana.dyas.patterns.Client
 	1. `play("mp4", ...)` y `play("vlc", ...)` delegan correctamente en `AdvancedAudioPlayer`.
 	2. `play("flac", ...)` y `play("aac", ...)` delegan correctamente en `PremiumAudioPlayer`, usando un volumen por defecto documentado.
 	3. `stop()` detiene correctamente el reproductor subyacente que esté activo (`playMp4`/`playVlc` → `stop()`; `flac`/`aac` → `halt()`).
+
+
+
+## Decisión de diseño
+
+Se implementó un adaptador por proveedor: `AdvancedAudioPlayerAdapter` y `PremiumAudioPlayerAdapter`.
+
+Esta decisión separa la lógica de integración de cada API externa. Si se agrega un nuevo proveedor, solo debemos crear otro adaptador que implemente `AudioPlayer`, sin modificar los adaptadores existentes ni las clases de terceros.
